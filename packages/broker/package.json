@@ -10,10 +10,10 @@
   },
   "dependencies": {
     "@firestorm/shared": "workspace:*",
-    "ws": "^8.18.0"
+    "ws": "^8.20.0"
   },
   "devDependencies": {
-    "@types/ws": "^8.5.10",
-    "vitest": "^2.0.0"
+    "@types/ws": "^8.18.1",
+    "vitest": "^2.1.9"
   }
 }

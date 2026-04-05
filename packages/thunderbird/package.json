@@ -5,7 +5,7 @@
   "scripts": {
     "build": "esbuild src/background.ts --bundle --platform=browser --target=firefox102 --outfile=background.js",
     "watch": "esbuild src/background.ts --bundle --platform=browser --target=firefox102 --outfile=background.js --watch",
-    "run:ext": "web-ext run --config web-ext-run-config.mjs",
+    "run:ext": "web-ext run --firefox-binary='/Applications/Thunderbird.app/Contents/MacOS/thunderbird' --firefox-profile=../../profiles/thunderbird-dev --keep-profile-changes",
     "lint": "web-ext lint --config web-ext-config.mjs",
     "test": "echo \"Extension tests run via web-ext lint\" && pnpm run lint",
     "build:xpi": "web-ext build --config web-ext-config.mjs --overwrite-dest",
