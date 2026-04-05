@@ -48,26 +48,28 @@ fi
 mkdir -p "${FIREFOX_NM_DIR}"
 mkdir -p "${THUNDERBIRD_NM_DIR}"
 
-# Firefox manifest — only the Firefox extension ID is allowed
+# Shared manifest in the Mozilla path — covers both Firefox and Thunderbird 128+,
+# which both resolve native messaging hosts from this directory.
 cat > "${FIREFOX_NM_DIR}/${HOST_NAME}.json" <<EOF
 {
   "name": "${HOST_NAME}",
   "description": "Firestorm IPC bridge",
   "path": "${HOST_SCRIPT}",
   "type": "stdio",
-  "allowed_extensions": ["firestorm-firefox@me.digitalby"]
+  "allowed_extensions": ["firestorm-firefox@me.digitalby", "firestorm-thunderbird@me.digitalby"]
 }
 EOF
-echo "    Firefox:     ${FIREFOX_NM_DIR}/${HOST_NAME}.json"
+echo "    Mozilla:     ${FIREFOX_NM_DIR}/${HOST_NAME}.json"
 
-# Thunderbird manifest — only the Thunderbird extension ID is allowed
+# Thunderbird-specific path — kept for Thunderbird versions before 128
+# that look here instead of the Mozilla directory.
 cat > "${THUNDERBIRD_NM_DIR}/${HOST_NAME}.json" <<EOF
 {
   "name": "${HOST_NAME}",
   "description": "Firestorm IPC bridge",
   "path": "${HOST_SCRIPT}",
   "type": "stdio",
-  "allowed_extensions": ["firestorm-thunderbird@me.digitalby"]
+  "allowed_extensions": ["firestorm-firefox@me.digitalby", "firestorm-thunderbird@me.digitalby"]
 }
 EOF
 echo "    Thunderbird: ${THUNDERBIRD_NM_DIR}/${HOST_NAME}.json"
