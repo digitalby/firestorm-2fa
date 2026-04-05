@@ -5,7 +5,7 @@
   "description": "IPC bridge between Firefox and Thunderbird",
   "background": {
     "service_worker": "background.js",
-    "type": "module"
+    "scripts": ["background.js"]
   },
   "permissions": [
     "nativeMessaging"

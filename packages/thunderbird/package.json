@@ -5,7 +5,7 @@
   "scripts": {
     "build": "esbuild src/background.ts --bundle --platform=browser --target=firefox102 --outfile=background.js",
     "watch": "esbuild src/background.ts --bundle --platform=browser --target=firefox102 --outfile=background.js --watch",
-    "run:ext": "web-ext run --config web-ext-config.mjs",
+    "run:ext": "web-ext run --config web-ext-run-config.mjs",
     "lint": "web-ext lint --config web-ext-config.mjs",
     "test": "echo \"Extension tests run via web-ext lint\" && pnpm run lint",
     "build:xpi": "web-ext build --config web-ext-config.mjs --overwrite-dest",
@@ -15,6 +15,6 @@
   "devDependencies": {
     "@types/chrome": "^0.0.270",
     "esbuild": "^0.24.0",
-    "web-ext": "^8.3.0"
+    "web-ext": "^10.1.0"
   }
 }
