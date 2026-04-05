@@ -7,7 +7,10 @@
     "watch": "esbuild src/background.ts --bundle --platform=browser --target=firefox109 --outfile=background.js --watch",
     "run:ext": "web-ext run --config web-ext-config.mjs",
     "lint": "web-ext lint --config web-ext-config.mjs",
-    "test": "echo \"Extension tests run via web-ext lint\" && pnpm run lint"
+    "test": "echo \"Extension tests run via web-ext lint\" && pnpm run lint",
+    "build:xpi": "web-ext build --config web-ext-config.mjs --overwrite-dest",
+    "sign:unlisted": "web-ext sign --channel=unlisted --config web-ext-config.mjs",
+    "sign:listed": "web-ext sign --channel=listed --config web-ext-config.mjs"
   },
   "devDependencies": {
     "@types/chrome": "^0.0.270",
