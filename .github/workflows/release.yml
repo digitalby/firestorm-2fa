@@ -23,6 +23,16 @@ jobs:
           node-version: '22'
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      - name: Verify manifest versions match tag
+        run: |
+          TAG_VERSION="${GITHUB_REF_NAME#v}"
+          FF_VERSION=$(jq -r '.version' packages/firefox/manifest.json)
+          TB_VERSION=$(jq -r '.version' packages/thunderbird/manifest.json)
+          if [ "$FF_VERSION" != "$TAG_VERSION" ] || [ "$TB_VERSION" != "$TAG_VERSION" ]; then
+            echo "Version mismatch: tag=$TAG_VERSION firefox=$FF_VERSION thunderbird=$TB_VERSION"
+            exit 1
+          fi
+          echo "Versions match: $TAG_VERSION"
       - run: pnpm lint
       - run: pnpm test
 
