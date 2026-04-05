@@ -1,0 +1,17 @@
+{
+  "name": "thunderbird",
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "build": "esbuild src/background.ts --bundle --platform=browser --target=firefox102 --outfile=background.js",
+    "watch": "esbuild src/background.ts --bundle --platform=browser --target=firefox102 --outfile=background.js --watch",
+    "run:ext": "web-ext run --config web-ext-config.mjs",
+    "lint": "web-ext lint --config web-ext-config.mjs",
+    "test": "echo \"Extension tests run via web-ext lint\" && pnpm run lint"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.270",
+    "esbuild": "^0.24.0",
+    "web-ext": "^8.3.0"
+  }
+}

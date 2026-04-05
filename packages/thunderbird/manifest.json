@@ -1,0 +1,19 @@
+{
+  "manifest_version": 2,
+  "name": "Firestorm",
+  "version": "0.1.0",
+  "description": "IPC bridge between Firefox and Thunderbird",
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": true
+  },
+  "permissions": [
+    "nativeMessaging"
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "firestorm-thunderbird@me.digitalby",
+      "strict_min_version": "102.0"
+    }
+  }
+}
