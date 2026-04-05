@@ -26,6 +26,15 @@ if [[ ! -f "${NM_FIREFOX}" ]] || [[ ! -f "${NM_THUNDERBIRD}" ]]; then
   exit 1
 fi
 
+# Kill any stale broker process still holding the port from a previous session
+BROKER_PORT=9467
+STALE_PIDS=$(lsof -ti :"${BROKER_PORT}" 2>/dev/null || true)
+if [[ -n "${STALE_PIDS}" ]]; then
+  echo "==> Clearing stale process on port ${BROKER_PORT}"
+  echo "${STALE_PIDS}" | xargs kill -9 2>/dev/null || true
+  sleep 0.5
+fi
+
 echo "==> Starting Firestorm dev environment"
 echo "    Broker:      localhost:9467"
 echo "    Firefox:     profiles/firefox-dev"
