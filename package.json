@@ -1,0 +1,25 @@
+{
+  "name": "firestorm-2fa",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "pnpm -r run build",
+    "dev": "./scripts/dev.sh",
+    "test": "pnpm -r run test",
+    "setup": "./scripts/setup.sh",
+    "teardown": "./scripts/teardown.sh",
+    "lint:firefox": "pnpm --filter firefox exec web-ext lint",
+    "lint:thunderbird": "pnpm --filter thunderbird exec web-ext lint",
+    "lint": "pnpm run lint:firefox && pnpm run lint:thunderbird"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/ws": "^8.5.10",
+    "concurrently": "^9.0.0",
+    "esbuild": "^0.24.0",
+    "typescript": "^5.6.0",
+    "vitest": "^2.0.0",
+    "web-ext": "^8.3.0"
+  }
+}

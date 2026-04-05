@@ -1,0 +1,24 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Build output
+**/dist/
+
+# Browser profiles (dev, never commit)
+profiles/
+
+# Extension build artifacts
+packages/firefox/background.js
+packages/firefox/background.js.map
+packages/thunderbird/background.js
+packages/thunderbird/background.js.map
+
+# Generated Native Messaging manifests (written by setup.sh with absolute paths)
+config/generated/
+
+# pnpm
+.pnpm-store/
+
+# OS
+.DS_Store
