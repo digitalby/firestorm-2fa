@@ -1,0 +1,17 @@
+{
+  "name": "@firestorm/native-host",
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "build": "tsc --project tsconfig.json",
+    "start": "node dist/index.js",
+    "test": "echo \"No tests in native-host package\""
+  },
+  "dependencies": {
+    "@firestorm/shared": "workspace:*",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "@types/ws": "^8.5.10"
+  }
+}

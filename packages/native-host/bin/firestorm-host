@@ -1,0 +1,8 @@
+#!/bin/bash
+# Native messaging host entry point.
+# The browser invokes this script and passes the calling extension ID as $1.
+# We delegate to the compiled Node.js bridge.
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+exec node "${SCRIPT_DIR}/../dist/index.js" "$@"
