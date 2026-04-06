@@ -6,8 +6,13 @@
 set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-HOST_SCRIPT="${REPO_ROOT}/packages/native-host/bin/firestorm-host"
 HOST_NAME="me.digitalby.firestorm"
+
+# macOS TCC restricts processes launched by browsers from accessing ~/Documents.
+# We install a thin launcher script into ~/Library/Application Support where
+# browsers can execute freely, and point both native messaging manifests there.
+LAUNCHER_DIR="${HOME}/Library/Application Support/${HOST_NAME}"
+LAUNCHER="${LAUNCHER_DIR}/firestorm-host"
 
 FIREFOX_NM_DIR="${HOME}/Library/Application Support/Mozilla/NativeMessagingHosts"
 # Thunderbird on macOS resolves XREUserNativeManifests to ~/Library/Mozilla (not Application Support)
@@ -37,38 +42,43 @@ echo "==> Creating isolated dev profiles"
 mkdir -p "${REPO_ROOT}/profiles/firefox-dev"
 mkdir -p "${REPO_ROOT}/profiles/thunderbird-dev"
 
+# ── Native host launcher ──────────────────────────────────────────────────────
+# Browsers set the native host's working directory to the launcher's parent.
+# A launcher in ~/Library/Application Support avoids macOS TCC restrictions
+# on ~/Documents that would cause getcwd() to fail for both Firefox and Thunderbird.
+echo ""
+echo "==> Installing native host launcher"
+mkdir -p "${LAUNCHER_DIR}"
+cat > "${LAUNCHER}" <<EOF
+#!/bin/bash
+exec node "${REPO_ROOT}/packages/native-host/dist/index.js" "\$@"
+EOF
+chmod +x "${LAUNCHER}"
+echo "    Launcher: ${LAUNCHER}"
+
 # ── Native Messaging registration ────────────────────────────────────────────
 echo ""
 echo "==> Registering native messaging host"
 
-if [[ ! -x "${HOST_SCRIPT}" ]]; then
-  echo "ERROR: Native host script not found or not executable: ${HOST_SCRIPT}"
-  exit 1
-fi
-
 mkdir -p "${FIREFOX_NM_DIR}"
 mkdir -p "${THUNDERBIRD_NM_DIR}"
 
-# Shared manifest in the Mozilla path — covers both Firefox and Thunderbird 128+,
-# which both resolve native messaging hosts from this directory.
 cat > "${FIREFOX_NM_DIR}/${HOST_NAME}.json" <<EOF
 {
   "name": "${HOST_NAME}",
   "description": "Firestorm IPC bridge",
-  "path": "${HOST_SCRIPT}",
+  "path": "${LAUNCHER}",
   "type": "stdio",
   "allowed_extensions": ["firestorm-firefox@me.digitalby", "firestorm-thunderbird@me.digitalby"]
 }
 EOF
 echo "    Firefox:     ${FIREFOX_NM_DIR}/${HOST_NAME}.json"
 
-# Thunderbird on macOS resolves XREUserNativeManifests to ~/Library/Mozilla,
-# which is separate from the Firefox path (~/Library/Application Support/Mozilla).
 cat > "${THUNDERBIRD_NM_DIR}/${HOST_NAME}.json" <<EOF
 {
   "name": "${HOST_NAME}",
   "description": "Firestorm IPC bridge",
-  "path": "${HOST_SCRIPT}",
+  "path": "${LAUNCHER}",
   "type": "stdio",
   "allowed_extensions": ["firestorm-firefox@me.digitalby", "firestorm-thunderbird@me.digitalby"]
 }

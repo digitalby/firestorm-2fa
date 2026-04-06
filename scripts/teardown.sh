@@ -5,6 +5,7 @@
 set -euo pipefail
 
 HOST_NAME="me.digitalby.firestorm"
+LAUNCHER_DIR="${HOME}/Library/Application Support/${HOST_NAME}"
 FIREFOX_NM="${HOME}/Library/Application Support/Mozilla/NativeMessagingHosts/${HOST_NAME}.json"
 THUNDERBIRD_NM="${HOME}/Library/Mozilla/NativeMessagingHosts/${HOST_NAME}.json"
 
@@ -20,6 +21,11 @@ for manifest in "${FIREFOX_NM}" "${THUNDERBIRD_NM}"; do
     echo "    Not found (already removed?): ${manifest}"
   fi
 done
+
+if [[ -d "${LAUNCHER_DIR}" ]]; then
+  rm -rf "${LAUNCHER_DIR}"
+  echo "    Removed launcher: ${LAUNCHER_DIR}"
+fi
 
 echo ""
 echo "==> Teardown complete (${removed} manifest(s) removed)"
