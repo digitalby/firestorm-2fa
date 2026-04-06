@@ -1,8 +1,8 @@
 /**
  * Native host entry point.
  *
- * The browser passes the calling extension's ID as the first argument
- * (process.argv[2]). We use that to determine our role in the broker.
+ * Gecko calls the host as: firestorm-host <manifest_path> <extension_id>
+ * The manifest path is argv[2] and the extension ID is argv[3].
  *
  * Manifest registration (done by setup.sh) ensures only the correct extension
  * can invoke this host for each role.
@@ -11,7 +11,7 @@
 import { EXTENSION_ID_FIREFOX, EXTENSION_ID_THUNDERBIRD, type MessageFrom } from '@firestorm/shared';
 import { Bridge } from './bridge.js';
 
-const extensionId = process.argv[2];
+const extensionId = process.argv[3];
 
 function resolveRole(id: string | undefined): MessageFrom {
   switch (id) {
