@@ -20,7 +20,7 @@ fi
 
 # Sanity check: ensure native messaging manifests are registered
 NM_FIREFOX="${HOME}/Library/Application Support/Mozilla/NativeMessagingHosts/me.digitalby.firestorm.json"
-NM_THUNDERBIRD="${HOME}/Library/Application Support/Thunderbird/NativeMessagingHosts/me.digitalby.firestorm.json"
+NM_THUNDERBIRD="${HOME}/Library/Mozilla/NativeMessagingHosts/me.digitalby.firestorm.json"
 if [[ ! -f "${NM_FIREFOX}" ]] || [[ ! -f "${NM_THUNDERBIRD}" ]]; then
   echo "ERROR: Native messaging not registered. Run ./scripts/setup.sh first."
   exit 1

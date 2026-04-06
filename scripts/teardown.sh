@@ -6,7 +6,7 @@ set -euo pipefail
 
 HOST_NAME="me.digitalby.firestorm"
 FIREFOX_NM="${HOME}/Library/Application Support/Mozilla/NativeMessagingHosts/${HOST_NAME}.json"
-THUNDERBIRD_NM="${HOME}/Library/Thunderbird/NativeMessagingHosts/${HOST_NAME}.json"
+THUNDERBIRD_NM="${HOME}/Library/Mozilla/NativeMessagingHosts/${HOST_NAME}.json"
 
 echo "==> Removing native messaging host registrations"
 

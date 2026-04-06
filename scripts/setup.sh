@@ -10,8 +10,8 @@ HOST_SCRIPT="${REPO_ROOT}/packages/native-host/bin/firestorm-host"
 HOST_NAME="me.digitalby.firestorm"
 
 FIREFOX_NM_DIR="${HOME}/Library/Application Support/Mozilla/NativeMessagingHosts"
-# Thunderbird on macOS uses ~/Library/Thunderbird/, not ~/Library/Application Support/Thunderbird/
-THUNDERBIRD_NM_DIR="${HOME}/Library/Thunderbird/NativeMessagingHosts"
+# Thunderbird on macOS resolves XREUserNativeManifests to ~/Library/Mozilla (not Application Support)
+THUNDERBIRD_NM_DIR="${HOME}/Library/Mozilla/NativeMessagingHosts"
 
 echo "==> firestorm-2fa setup"
 echo "    Repo: ${REPO_ROOT}"
@@ -60,10 +60,10 @@ cat > "${FIREFOX_NM_DIR}/${HOST_NAME}.json" <<EOF
   "allowed_extensions": ["firestorm-firefox@me.digitalby", "firestorm-thunderbird@me.digitalby"]
 }
 EOF
-echo "    Mozilla:     ${FIREFOX_NM_DIR}/${HOST_NAME}.json"
+echo "    Firefox:     ${FIREFOX_NM_DIR}/${HOST_NAME}.json"
 
-# Thunderbird-specific path — kept for Thunderbird versions before 128
-# that look here instead of the Mozilla directory.
+# Thunderbird on macOS resolves XREUserNativeManifests to ~/Library/Mozilla,
+# which is separate from the Firefox path (~/Library/Application Support/Mozilla).
 cat > "${THUNDERBIRD_NM_DIR}/${HOST_NAME}.json" <<EOF
 {
   "name": "${HOST_NAME}",
