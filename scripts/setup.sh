@@ -10,7 +10,8 @@ HOST_SCRIPT="${REPO_ROOT}/packages/native-host/bin/firestorm-host"
 HOST_NAME="me.digitalby.firestorm"
 
 FIREFOX_NM_DIR="${HOME}/Library/Application Support/Mozilla/NativeMessagingHosts"
-THUNDERBIRD_NM_DIR="${HOME}/Library/Application Support/Thunderbird/NativeMessagingHosts"
+# Thunderbird on macOS uses ~/Library/Thunderbird/, not ~/Library/Application Support/Thunderbird/
+THUNDERBIRD_NM_DIR="${HOME}/Library/Thunderbird/NativeMessagingHosts"
 
 echo "==> firestorm-2fa setup"
 echo "    Repo: ${REPO_ROOT}"
