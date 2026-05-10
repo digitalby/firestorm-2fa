@@ -1,6 +1,6 @@
 {
   "name": "firefox",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "scripts": {
     "build": "esbuild src/background.ts --bundle --platform=browser --target=firefox109 --outfile=background.js",
