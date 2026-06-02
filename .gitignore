@@ -22,3 +22,6 @@ config/generated/
 
 # OS
 .DS_Store
+
+# Extension build artifacts (xpi packaging output)
+artifacts/
