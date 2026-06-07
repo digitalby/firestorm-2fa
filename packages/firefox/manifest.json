@@ -1,11 +1,13 @@
 {
   "manifest_version": 3,
   "name": "Firestorm",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "IPC bridge between Firefox and Thunderbird",
   "background": {
     "service_worker": "background.js",
-    "scripts": ["background.js"]
+    "scripts": [
+      "background.js"
+    ]
   },
   "permissions": [
     "nativeMessaging"
